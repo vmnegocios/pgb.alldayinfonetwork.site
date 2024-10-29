@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Pay</title>
+	<link rel="icon" href="images/favicon.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #d3d3d3;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        .menu {
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .menu img {
+            height: 40px;
+        }
+        .balance {
+            background-color: #F20449;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            animation: countUp 4s forwards;
+        }
+        .content {
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #fff;
+            max-width: 600px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .content h1 {
+            color: #F20449;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .content p {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .content img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .options {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .option {
+            background-color: #d3d3d3;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .option:hover, .option.selected {
+            background-color: #F20449;
+            color: #fff;
+        }
+        .button {
+            background-color: #F20449;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        .spacer {
+            height: 500px; /* Espaço entre os blocos */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu fixo com saldo -->
+    <div class="menu">
+        <img src="images/logotiktokpay.jpg" alt="TikTok Pay Logo">
+        <div class="balance">$00.00</div>
+    </div>
+
+    <!-- Adicionando o som de dinheiro -->
+    <audio id="moneySound" src="sounds/tictim.mp3"></audio>
+
+    <!-- Bloco 1 - Avaliação com photo1 -->
+    <div id="block1" class="content">
+        <h1>Answer and win $33.00!</h1>
+        <img src="images/Rock.jpg" alt="Question Image 1">
+        <p>From 1 to 5, what grade do you give to Dwayne Johnson "The Rock"?</p>
+        <div class="options" data-question="1">
+            <div class="option" onclick="selectOption(this, 1)">1</div>
+            <div class="option" onclick="selectOption(this, 1)">2</div>
+            <div class="option" onclick="selectOption(this, 1)">3</div>
+            <div class="option" onclick="selectOption(this, 1)">4</div>
+            <div class="option" onclick="selectOption(this, 1)">5</div>
+        </div>
+        <p>Do you think Dwayne Johnson "The Rock" content is good?</p>
+        <div class="options" data-question="2">
+            <div class="option" onclick="selectOption(this, 2)">Yes</div>
+            <div class="option" onclick="selectOption(this, 2)">No</div>
+        </div>
+        <p>Do you follow Dwayne Johnson "The Rock" on any social media?</p>
+        <div class="options" data-question="3">
+            <div class="option" onclick="selectOption(this, 3)">Yes</div>
+            <div class="option" onclick="selectOption(this, 3)">No</div>
+        </div>
+        <button class="button" onclick="playMoneySound(); scrollToNextBlock(80, '#block2', 47)">SEND RESPONSES</button>
+    </div>
+
+    <div class="spacer"></div> <!-- Espaço maior entre os blocos -->
+
+    <!-- Bloco 2 - Avaliação com photo2 -->
+    <div id="block2" class="content">
+        <h1>Continue and win $33.00!</h1>
+        <img src="images/Taylor.jpg" alt="Question Image 2">
+        <p>From 1 to 5, what grade do you give to Taylor Swift?</p>
+        <div class="options" data-question="4">
+            <div class="option" onclick="selectOption(this, 4)">1</div>
+            <div class="option" onclick="selectOption(this, 4)">2</div>
+            <div class="option" onclick="selectOption(this, 4)">3</div>
+            <div class="option" onclick="selectOption(this, 4)">4</div>
+            <div class="option" onclick="selectOption(this, 4)">5</div>
+        </div>
+        <p>Do you think Taylor Swift content is good?</p>
+        <div class="options" data-question="5">
+            <div class="option" onclick="selectOption(this, 5)">Yes</div>
+            <div class="option" onclick="selectOption(this, 5)">No</div>
+        </div>
+        <p>Do you follow Taylor Swift on any social media?</p>
+        <div class="options" data-question="6">
+            <div class="option" onclick="selectOption(this, 6)">Yes</div>
+            <div class="option" onclick="selectOption(this, 6)">No</div>
+        </div>
+        <button class="button" onclick="playMoneySound(); scrollToNextBlock(113, '#block3', 80)">SEND RESPONSES</button>
+    </div>
+
+    <div class="spacer"></div> <!-- Espaço maior entre os blocos -->
+
+    <!-- Bloco 3 - Avaliação com photo3 -->
+    <div id="block3" class="content">
+        <h1>Final Step to Win $33.00!</h1>
+        <img src="images/Tom.jpg" alt="Question Image 3">
+        <p>From 1 to 5, what grade do you give to Tom Hanks?</p>
+        <div class="options" data-question="7">
+            <div class="option" onclick="selectOption(this, 7)">1</div>
+            <div class="option" onclick="selectOption(this, 7)">2</div>
+            <div class="option" onclick="selectOption(this, 7)">3</div>
+            <div class="option" onclick="selectOption(this, 7)">4</div>
+            <div class="option" onclick="selectOption(this, 7)">5</div>
+        </div>
+        <p>Do you think Tom Hanks content is good?</p>
+        <div class="options" data-question="8">
+            <div class="option" onclick="selectOption(this, 8)">Yes</div>
+            <div class="option" onclick="selectOption(this, 8)">No</div>
+        </div>
+        <p>Do you follow Tom Hanks on any social media?</p>
+        <div class="options" data-question="9">
+            <div class="option" onclick="selectOption(this, 9)">Yes</div>
+            <div class="option" onclick="selectOption(this, 9)">No</div>
+        </div>
+        <a href="DIGITEOLINKAQUI.COM" class="button" onclick="playMoneySound()">SEND RESPONSES</a>
+    </div>
+
+    <script>
+        // Função para tocar o som
+        function playMoneySound() {
+            var sound = document.getElementById('moneySound');
+            sound.play();
+        }
+
+        let balance = 0;
+        let targetBalance = 47.00;
+        let duration = 4000; // 4 segundos
+
+        function updateBalance(target) {
+            targetBalance = target;
+            let increment = (targetBalance - balance) / (duration / 100);
+            
+            function animateBalance() {
+                if (balance < targetBalance) {
+                    balance += increment;
+                    document.querySelector('.balance').textContent = `$${balance.toFixed(2)}`;
+                    setTimeout(animateBalance, 100);
+                } else {
+                    balance = targetBalance;
+                    document.querySelector('.balance').textContent = `$${balance.toFixed(2)}`;
+                }
+            }
+            animateBalance();
+        }
+
+        function scrollToNextBlock(targetBalance, nextBlockId, currentBalance) {
+            if (balance === currentBalance) {
+                updateBalance(targetBalance);
+            }
+            document.querySelector(nextBlockId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Função para selecionar uma opção
+        function selectOption(option, question) {
+            let options = document.querySelectorAll('.options[data-question="' + question + '"] .option');
+            options.forEach(function(opt) {
+                opt.classList.remove('selected');
+            });
+            option.classList.add('selected');
+        }
+
+        // Inicializar o saldo
+        setTimeout(() => updateBalance(47), 500); 
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Pay</title>
+
+    <!-- Adicionando o favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #d3d3d3;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        .menu {
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .menu img {
+            height: 40px;
+        }
+        .balance {
+            background-color: #F20449;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            animation: countUp 4s forwards;
+        }
+        .content {
+            margin: 20px auto;
+            padding: 30px;
+            background-color: #fff;
+            max-width: 600px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .content p {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .counter {
+            font-size: 40px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #F20449;
+            display: inline-block;
+        }
+        .counter-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu fixo com saldo -->
+    <div class="menu">
+        <img src="images/logotiktokpay.jpg" alt="TikTok Pay Logo">
+        <div class="balance">$00.00</div>
+    </div>
+
+    <!-- Adicionando o som de dinheiro -->
+    <audio id="moneySound" src="sounds/tictim.mp3"></audio>
+
+    <!-- Bloco de conteúdo -->
+    <div class="content">
+        <div id="vid_67202b8aef45e2000acae360" style="position:relative;width:100%;padding: 133.33333333333331% 0 0;"> <img id="thumb_67202b8aef45e2000acae360" src="https://images.converteai.net/7ee76c7b-b701-481f-b973-2b478faae041/players/67202b8aef45e2000acae360/thumbnail.jpg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;"> <div id="backdrop_67202b8aef45e2000acae360" style="position:absolute;top:0;width:100%;height:100%;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);"></div> </div> <script type="text/javascript" id="scr_67202b8aef45e2000acae360"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/7ee76c7b-b701-481f-b973-2b478faae041/players/67202b8aef45e2000acae360/player.js", s.async=!0,document.head.appendChild(s); </script> <style> .elementor-element:has(#smartplayer) { width: 100%; } </style>
+    </div>
+
+    <script>
+        // Função para tocar o som quando a página carrega
+        function playMoneySound() {
+            var sound = document.getElementById('moneySound');
+            sound.play();
+        }
+
+        // Atualização do saldo
+        let balance = 0;
+        let targetBalance = 146.00;
+        let duration = 4000; // 4 segundos
+
+        function updateBalance() {
+            let increment = (targetBalance - balance) / (duration / 100);
+            
+            function animateBalance() {
+                if (balance < targetBalance) {
+                    balance += increment;
+                    document.querySelector('.balance').textContent = `$${balance.toFixed(2)}`;
+                    setTimeout(animateBalance, 100);
+                } else {
+                    balance = targetBalance;
+                    document.querySelector('.balance').textContent = `$${balance.toFixed(2)}`;
+                }
+            }
+            animateBalance();
+        }
+
+        // Inicializa o som e o saldo ao carregar a página
+        window.onload = function() {
+            playMoneySound();
+            updateBalance();
+            updateCounter();
+        };
+    </script>
+
+</body>
+</html>
